@@ -1,5 +1,4 @@
 import { Image, StyleSheet, Platform } from 'react-native';
-
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -8,46 +7,42 @@ import { ThemedView } from '@/components/ThemedView';
 export default function HomeScreen() {
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      headerBackgroundColor={{ light: '#000', dark: '#000' }}
       headerImage={
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+          source={require('@/assets/images/fitness-banner.jpg')} // Update with relevant image
+          style={styles.bannerImage}
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
+        <ThemedText type="title">Fitness & Well-being</ThemedText>
         <HelloWave />
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+
+      {/* Exercise Section */}
+      <ThemedView style={styles.sectionContainer}>
+        <ThemedText type="subtitle">Exercise for a Healthy Life</ThemedText>
         <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
+          Regular physical activity improves cardiovascular health, boosts energy, and strengthens muscles.  
+          Activities like running, weightlifting, and yoga are great for overall fitness.
         </ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
+
+      {/* Nutrition Section */}
+      <ThemedView style={styles.sectionContainer}>
+        <ThemedText type="subtitle">Balanced Nutrition</ThemedText>
         <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
+          Eating a well-balanced diet is key to maintaining good health.  
+          Focus on lean proteins, whole grains, and plenty of vegetables while staying hydrated.
         </ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
+
+      {/* Mental Health Section */}
+      <ThemedView style={styles.sectionContainer}>
+        <ThemedText type="subtitle">Mind & Body Connection</ThemedText>
         <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
+          Mental health is just as important as physical health.  
+          Practices like meditation, mindfulness, and deep breathing can help reduce stress and improve focus.
         </ThemedText>
       </ThemedView>
     </ParallaxScrollView>
@@ -60,15 +55,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
-  stepContainer: {
+  sectionContainer: {
     gap: 8,
-    marginBottom: 8,
+    marginBottom: 12,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  bannerImage: {
+    height: 200,
+    width: '100%',
+    resizeMode: 'cover',
   },
 });

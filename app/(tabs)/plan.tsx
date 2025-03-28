@@ -1,6 +1,16 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Platform } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { useRouter } from "expo-router"; 
+import { LinearGradient } from "expo-linear-gradient"; 
 
 export default function Plan() {
+  const router = useRouter();
+
   const plans = [
     {
       months: 3,
@@ -26,36 +36,68 @@ export default function Plan() {
   ];
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-      {Platform.OS === "android" && <View style={{ height: 30 }} />} {/* Extra padding only on Android */}
-      <View><Text style={styles.title}>🚀 Choose Your Plan</Text></View>
-      {plans.map((plan) => (
-        <View key={plan.months} style={styles.card}>
-          <Text style={styles.planTitle}>{plan.title}</Text>
-          <Text style={styles.planDescription}>{plan.description}</Text>
-          <Text style={styles.price}>{plan.price}</Text>
-          <TouchableOpacity style={styles.buyButton} activeOpacity={0.8}>
-            <Text style={styles.buyButtonText}>Buy Now</Text>
-          </TouchableOpacity>
+    <LinearGradient colors={["#1E3C72", "#2A5298"]} style={styles.gradientBackground}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.container}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>🚀 Choose Your Plan</Text>
+          </View>
+
+          {plans.map((plan) => (
+            <View key={plan.months} style={styles.card}>
+              <Text style={styles.planTitle}>{plan.title}</Text>
+              <Text style={styles.planDescription}>{plan.description}</Text>
+              <Text style={styles.price}>{plan.price}</Text>
+
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() =>
+                  router.push({
+                    pathname: "/plan/[months]",
+                    params: { months: plan.months.toString() },
+                  })
+                }
+              >
+                <LinearGradient
+                  colors={["#FF8C00", "#FF4500"]}
+                  style={styles.buyButton}
+                >
+                  <Text style={styles.buyButtonText}>Buy Now</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          ))}
         </View>
-      ))}
-    </ScrollView>
+      </ScrollView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
+  gradientBackground: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+  },
+  titleContainer: {
+    alignItems: "center",
+    marginBottom: 20,
+    marginTop: 40,
+  },
   scrollContainer: {
     paddingBottom: 30,
     alignItems: "center",
   },
   title: {
-    fontSize: 26,
-    fontWeight: "700",
-    marginBottom: 20,
-    color: "#1D1E20",
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#fff",
   },
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: "#F9F9F9",
     padding: 20,
     marginVertical: 12,
     borderRadius: 15,
@@ -68,14 +110,14 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   planTitle: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "700",
-    color: "#0056b3",
+    color: "#2A5298",
     marginBottom: 8,
   },
   planDescription: {
     fontSize: 16,
-    color: "#555",
+    color: "#444",
     textAlign: "center",
     marginBottom: 12,
     lineHeight: 22,
@@ -87,14 +129,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   buyButton: {
-    backgroundColor: "#007bff",
     paddingVertical: 12,
-    paddingHorizontal: 25,
+    paddingHorizontal: 40,
     borderRadius: 25,
-    shadowColor: "#007bff",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
+    alignItems: "center",
   },
   buyButtonText: {
     fontSize: 18,
